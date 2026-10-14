@@ -1,0 +1,64 @@
+{
+  "name": "universal-countdown-clock",
+  "version": "1.0.1",
+  "description": "Universal, customizable Countdown Clock for React with 10 stunning visual themes, flexible props, zero runtime UI dependencies, and headless hook support.",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./dist/style.css"
+  },
+  "scripts": {
+    "build": "vite build",
+    "type-check": "tsc --noEmit",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "keywords": [
+    "countdown",
+    "countdown-clock",
+    "timer",
+    "react-countdown",
+    "flip-clock",
+    "circular-timer",
+    "cyberpunk",
+    "digital-clock",
+    "glassmorphism",
+    "minimal",
+    "arcade",
+    "luxury",
+    "neumorphic",
+    "badge-ticker",
+    "react-component",
+    "typescript"
+  ],
+  "author": "Chamika Sathsara <chamikasathsara1@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=16.8.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": ">=16.8.0 || ^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^8.6.0",
+    "@storybook/blocks": "^8.6.0",
+    "@storybook/react": "^8.6.0",
+    "@storybook/react-vite": "^8.6.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "storybook": "^8.6.0",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.14",
+    "vite-plugin-dts": "^5.1.2"
+  }
+}

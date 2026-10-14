@@ -1,0 +1,735 @@
+/* ==========================================================================
+   UNIVERSAL COUNTDOWN CLOCK - CORE & THEME STYLESHEET
+   Supports 10 Distinct Visual Themes:
+   1. Flip (3D Mechanical Split-Flap)
+   2. Circular (Concentric Radial Progress SVG)
+   3. Cyberpunk (Futuristic Sci-Fi HUD)
+   4. Digital (Retro 7-Segment LED Phosphor Display)
+   5. Glassmorphism (Frosted Glass & Iridescent Sheen)
+   6. Minimal (Swiss Editorial Monospace)
+   7. Arcade (8-Bit Retro Gaming)
+   8. Luxury (Metallic Gold Haute Horlogerie)
+   9. Neumorphic (Soft 3D Tactile Clay)
+   10. Compact (Live E-Commerce Ticker Badge)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Root Variables & Sizes
+   -------------------------------------------------------------------------- */
+:root {
+  --ucc-font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --ucc-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+  --ucc-font-serif: 'Playfair Display', Georgia, Cambria, 'Times New Roman', serif;
+}
+
+.ucc-root {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+  font-family: var(--ucc-font-sans);
+}
+
+.ucc-root *,
+.ucc-root *::before,
+.ucc-root *::after {
+  box-sizing: border-box;
+}
+
+/* Header & Titles */
+.ucc-header {
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.ucc-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.ucc-subtitle {
+  font-size: 0.8rem;
+  opacity: 0.75;
+  margin-top: 0.25rem;
+}
+
+/* Segment Groups */
+.ucc-segments {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--ucc-gap, 0.75rem);
+}
+
+.ucc-segment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ucc-label {
+  font-size: var(--ucc-label-size, 0.75rem);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.4rem;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+.ucc-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--ucc-divider-size, 1.75rem);
+  font-weight: bold;
+  opacity: 0.6;
+  padding: 0 0.1rem;
+  margin-bottom: var(--ucc-divider-offset, 1.2rem);
+}
+
+/* Size Variants */
+.ucc-size-sm {
+  --ucc-scale: 0.8;
+  --ucc-digit-size: 1.25rem;
+  --ucc-label-size: 0.65rem;
+  --ucc-gap: 0.5rem;
+}
+.ucc-size-md {
+  --ucc-scale: 1;
+  --ucc-digit-size: 2rem;
+  --ucc-label-size: 0.75rem;
+  --ucc-gap: 0.75rem;
+}
+.ucc-size-lg {
+  --ucc-scale: 1.25;
+  --ucc-digit-size: 2.75rem;
+  --ucc-label-size: 0.85rem;
+  --ucc-gap: 1rem;
+}
+.ucc-size-xl {
+  --ucc-scale: 1.5;
+  --ucc-digit-size: 3.5rem;
+  --ucc-label-size: 1rem;
+  --ucc-gap: 1.25rem;
+}
+
+/* ==========================================================================
+   1. FLIP CLOCK THEME (3D Mechanical Split-Flap)
+   ========================================================================== */
+.ucc-theme-flip {
+  --ucc-flip-bg: #1e2430;
+  --ucc-flip-card-bg: #2b3345;
+  --ucc-flip-text: #f8fafc;
+  --ucc-flip-border: #141824;
+  --ucc-flip-hinge: #0d111a;
+  background: var(--ucc-bg, transparent);
+  padding: 0.5rem;
+}
+
+.ucc-flip-card {
+  position: relative;
+  width: calc(3.6rem * var(--ucc-scale, 1));
+  height: calc(4.8rem * var(--ucc-scale, 1));
+  background: var(--ucc-flip-card-bg);
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 400px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ucc-flip-digits {
+  font-family: var(--ucc-font-mono);
+  font-size: calc(2.4rem * var(--ucc-scale, 1));
+  font-weight: 800;
+  color: var(--ucc-flip-text);
+  line-height: 1;
+  z-index: 1;
+}
+
+/* Horizontal Hinge Line */
+.ucc-flip-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--ucc-flip-hinge);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
+
+/* Side notch rivets */
+.ucc-flip-card::before {
+  content: '';
+  position: absolute;
+  top: calc(50% - 3px);
+  left: 0;
+  width: 4px;
+  height: 6px;
+  background: #0b0d13;
+  border-radius: 0 3px 3px 0;
+  z-index: 3;
+}
+
+.ucc-theme-flip .ucc-divider {
+  color: #64748b;
+  animation: ucc-blink 1.5s infinite;
+}
+
+/* ==========================================================================
+   2. CIRCULAR THEME (Radial Rings / SVG Progress)
+   ========================================================================== */
+.ucc-theme-circular {
+  --ucc-ring-bg: #1e293b;
+  --ucc-ring-fill: #38bdf8;
+  --ucc-ring-text: #f1f5f9;
+}
+
+.ucc-circular-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ucc-circular-svg-wrap {
+  position: relative;
+  width: calc(5rem * var(--ucc-scale, 1));
+  height: calc(5rem * var(--ucc-scale, 1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ucc-circular-svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.ucc-circular-circle-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+}
+
+.ucc-circular-circle-bar {
+  fill: none;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.8s ease;
+  filter: drop-shadow(0 0 6px var(--ucc-ring-fill));
+}
+
+.ucc-circular-center-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ucc-circular-digits {
+  font-family: var(--ucc-font-mono);
+  font-size: calc(1.5rem * var(--ucc-scale, 1));
+  font-weight: 700;
+  color: var(--ucc-ring-text);
+  line-height: 1;
+}
+
+.ucc-circular-micro-label {
+  font-size: calc(0.55rem * var(--ucc-scale, 1));
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.05em;
+  margin-top: 0.15rem;
+}
+
+/* ==========================================================================
+   3. CYBERPUNK THEME (Futuristic Sci-Fi HUD)
+   ========================================================================== */
+.ucc-theme-cyberpunk {
+  --ucc-cp-primary: #00f0ff;
+  --ucc-cp-secondary: #ff0055;
+  --ucc-cp-bg: #090a10;
+  --ucc-cp-card: rgba(13, 17, 30, 0.85);
+  background: var(--ucc-cp-bg);
+  padding: 1.25rem 1.75rem;
+  border: 1px solid var(--ucc-cp-primary);
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.25), inset 0 0 15px rgba(0, 240, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+}
+
+.ucc-theme-cyberpunk::before {
+  content: 'SYSTEM://COUNTDOWN_HUD [STABLE]';
+  position: absolute;
+  top: 4px;
+  left: 12px;
+  font-family: var(--ucc-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--ucc-cp-primary);
+  opacity: 0.7;
+}
+
+.ucc-theme-cyberpunk::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 240, 255, 0.03) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  animation: ucc-scanlines 10s linear infinite;
+}
+
+.ucc-cyberpunk-card {
+  position: relative;
+  background: var(--ucc-cp-card);
+  padding: calc(0.8rem * var(--ucc-scale, 1)) calc(1.1rem * var(--ucc-scale, 1));
+  border-left: 3px solid var(--ucc-cp-secondary);
+  border-right: 1px solid rgba(0, 240, 255, 0.3);
+  box-shadow: 0 0 12px rgba(255, 0, 85, 0.2);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
+.ucc-cyberpunk-digits {
+  font-family: var(--ucc-font-mono);
+  font-size: calc(2.2rem * var(--ucc-scale, 1));
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 0 10px var(--ucc-cp-primary), 0 0 20px var(--ucc-cp-primary);
+  letter-spacing: 0.05em;
+}
+
+.ucc-theme-cyberpunk .ucc-label {
+  color: var(--ucc-cp-primary);
+  font-family: var(--ucc-font-mono);
+  font-size: calc(0.65rem * var(--ucc-scale, 1));
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+}
+
+.ucc-theme-cyberpunk .ucc-divider {
+  color: var(--ucc-cp-secondary);
+  text-shadow: 0 0 10px var(--ucc-cp-secondary);
+}
+
+/* ==========================================================================
+   4. DIGITAL 7-SEGMENT LED THEME (Phosphor Alarm Scoreboard)
+   ========================================================================== */
+.ucc-theme-digital {
+  --ucc-led-active: #ff3333;
+  --ucc-led-inactive: rgba(255, 50, 50, 0.06);
+  --ucc-led-bg: #0d0d0f;
+  background: var(--ucc-led-bg);
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  border: 4px solid #22252a;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.9), 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+.ucc-digital-display {
+  display: flex;
+  align-items: center;
+  background: #050507;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #1a1a1f;
+}
+
+.ucc-digital-pair {
+  display: flex;
+  gap: 3px;
+}
+
+.ucc-digital-svg {
+  width: calc(24px * var(--ucc-scale, 1));
+  height: calc(44px * var(--ucc-scale, 1));
+}
+
+.ucc-digital-seg {
+  transition: fill 0.15s ease, filter 0.15s ease;
+}
+
+.ucc-digital-seg-on {
+  fill: var(--ucc-led-active);
+  filter: drop-shadow(0 0 4px var(--ucc-led-active)) drop-shadow(0 0 8px var(--ucc-led-active));
+}
+
+.ucc-digital-seg-off {
+  fill: var(--ucc-led-inactive);
+}
+
+.ucc-digital-colon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 8px;
+}
+
+.ucc-digital-dot {
+  width: calc(5px * var(--ucc-scale, 1));
+  height: calc(5px * var(--ucc-scale, 1));
+  border-radius: 50%;
+  background: var(--ucc-led-active);
+  box-shadow: 0 0 6px var(--ucc-led-active);
+  animation: ucc-blink 1s steps(1) infinite;
+}
+
+.ucc-theme-digital .ucc-label {
+  color: #71717a;
+  font-family: var(--ucc-font-mono);
+  font-size: calc(0.65rem * var(--ucc-scale, 1));
+}
+
+/* ==========================================================================
+   5. GLASSMORPHISM THEME (Frosted Glass & Iridescent Borders)
+   ========================================================================== */
+.ucc-theme-glassmorphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.ucc-glass-card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: calc(0.9rem * var(--ucc-scale, 1)) calc(1.1rem * var(--ucc-scale, 1));
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ucc-glass-digits {
+  font-family: var(--ucc-font-sans);
+  font-size: calc(2.2rem * var(--ucc-scale, 1));
+  font-weight: 800;
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+
+.ucc-theme-glassmorphism .ucc-label {
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.15em;
+  font-weight: 500;
+}
+
+.ucc-theme-glassmorphism .ucc-divider {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ==========================================================================
+   6. MINIMAL THEME (Swiss Editorial Monospace)
+   ========================================================================== */
+.ucc-theme-minimal {
+  background: transparent;
+  padding: 0.5rem;
+}
+
+.ucc-minimal-unit {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 0.3rem;
+}
+
+.ucc-minimal-digits {
+  font-family: var(--ucc-font-mono);
+  font-size: calc(2.5rem * var(--ucc-scale, 1));
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.ucc-minimal-label {
+  font-family: var(--ucc-font-sans);
+  font-size: calc(0.7rem * var(--ucc-scale, 1));
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+}
+
+.ucc-theme-minimal .ucc-divider {
+  font-weight: 200;
+  font-size: calc(2.2rem * var(--ucc-scale, 1));
+  opacity: 0.3;
+  margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   7. ARCADE 8-BIT THEME (Retro Gaming & Pixel Art)
+   ========================================================================== */
+.ucc-theme-arcade {
+  --ucc-arc-primary: #ffeb3b;
+  --ucc-arc-accent: #ff007f;
+  --ucc-arc-bg: #1a0826;
+  --ucc-arc-border: #ffffff;
+  background: var(--ucc-arc-bg);
+  border: 4px solid var(--ucc-arc-border);
+  box-shadow: 6px 6px 0px #000000, 10px 10px 0px var(--ucc-arc-accent);
+  padding: 1.25rem 1.5rem;
+  image-rendering: pixelated;
+}
+
+.ucc-arcade-badge {
+  font-family: var(--ucc-font-mono);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  background: var(--ucc-arc-accent);
+  color: #fff;
+  padding: 2px 8px;
+  margin-bottom: 0.75rem;
+  border: 2px solid #000;
+  box-shadow: 2px 2px 0 #000;
+  animation: ucc-pulse-badge 1s infinite alternate;
+}
+
+.ucc-arcade-box {
+  background: #000000;
+  border: 3px solid var(--ucc-arc-primary);
+  box-shadow: 3px 3px 0 #ff007f;
+  padding: calc(0.6rem * var(--ucc-scale, 1)) calc(0.9rem * var(--ucc-scale, 1));
+}
+
+.ucc-arcade-digits {
+  font-family: var(--ucc-font-mono);
+  font-size: calc(2rem * var(--ucc-scale, 1));
+  font-weight: 900;
+  color: var(--ucc-arc-primary);
+  text-shadow: 2px 2px 0 #ff007f;
+  letter-spacing: 0.1em;
+}
+
+.ucc-theme-arcade .ucc-label {
+  font-family: var(--ucc-font-mono);
+  font-size: calc(0.65rem * var(--ucc-scale, 1));
+  color: #00ffcc;
+  text-shadow: 1px 1px 0 #000;
+  font-weight: 900;
+}
+
+.ucc-theme-arcade .ucc-divider {
+  color: #ff007f;
+  font-family: var(--ucc-font-mono);
+  font-size: calc(2rem * var(--ucc-scale, 1));
+  text-shadow: 2px 2px 0 #000;
+}
+
+/* ==========================================================================
+   8. LUXURY THEME (Haute Horlogerie / Metallic Gold)
+   ========================================================================== */
+.ucc-theme-luxury {
+  background: radial-gradient(circle at 50% 30%, #1c1917 0%, #0c0a09 100%);
+  border: 2px solid #d4af37;
+  border-radius: 16px;
+  padding: 1.75rem 2.25rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(212, 175, 55, 0.2);
+  position: relative;
+}
+
+.ucc-theme-luxury::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.ucc-luxury-box {
+  background: linear-gradient(180deg, #1f1d1a 0%, #121110 100%);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 8px;
+  padding: calc(0.8rem * var(--ucc-scale, 1)) calc(1.1rem * var(--ucc-scale, 1));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(212, 175, 55, 0.3);
+}
+
+.ucc-luxury-digits {
+  font-family: var(--ucc-font-serif);
+  font-size: calc(2.4rem * var(--ucc-scale, 1));
+  font-weight: 700;
+  background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 30%, #b38728 60%, #fbf5b7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+
+.ucc-theme-luxury .ucc-label {
+  font-family: var(--ucc-font-sans);
+  color: #d4af37;
+  font-size: calc(0.65rem * var(--ucc-scale, 1));
+  letter-spacing: 0.25em;
+  font-weight: 600;
+}
+
+.ucc-theme-luxury .ucc-divider {
+  color: #b38728;
+}
+
+/* ==========================================================================
+   9. NEUMORPHIC THEME (Soft 3D Clay Skeuomorphism)
+   ========================================================================== */
+.ucc-theme-neumorphic {
+  --ucc-neu-bg: #22262f;
+  --ucc-neu-shadow-dark: #191c23;
+  --ucc-neu-shadow-light: #2b303b;
+  --ucc-neu-accent: #60a5fa;
+  background: var(--ucc-neu-bg);
+  border-radius: 24px;
+  padding: 1.5rem 2rem;
+  box-shadow: 12px 12px 24px var(--ucc-neu-shadow-dark), -12px -12px 24px var(--ucc-neu-shadow-light);
+}
+
+.ucc-neu-card {
+  background: var(--ucc-neu-bg);
+  border-radius: 16px;
+  padding: calc(0.9rem * var(--ucc-scale, 1)) calc(1.1rem * var(--ucc-scale, 1));
+  box-shadow: inset 4px 4px 8px var(--ucc-neu-shadow-dark), inset -4px -4px 8px var(--ucc-neu-shadow-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ucc-neu-digits {
+  font-family: var(--ucc-font-mono);
+  font-size: calc(2.2rem * var(--ucc-scale, 1));
+  font-weight: 700;
+  color: var(--ucc-neu-accent);
+  text-shadow: 0 0 10px rgba(96, 165, 250, 0.4);
+  line-height: 1;
+}
+
+.ucc-theme-neumorphic .ucc-label {
+  color: #94a3b8;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.ucc-theme-neumorphic .ucc-divider {
+  color: #64748b;
+}
+
+/* ==========================================================================
+   10. COMPACT THEME (Live Sale Ticker / E-Commerce Banner Badge)
+   ========================================================================== */
+.ucc-theme-compact {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 9999px;
+  padding: 0.4rem 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ucc-compact-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #ef4444;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ucc-compact-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+  animation: ucc-pulse-dot 1.2s infinite;
+}
+
+.ucc-compact-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ucc-compact-pill {
+  background: #1e293b;
+  color: #f8fafc;
+  font-family: var(--ucc-font-mono);
+  font-size: calc(1rem * var(--ucc-scale, 1));
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  line-height: 1.2;
+}
+
+.ucc-compact-unit-tag {
+  font-size: 0.65rem;
+  color: #94a3b8;
+  margin-left: 1px;
+}
+
+.ucc-theme-compact .ucc-divider {
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 0;
+  padding: 0 1px;
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+@keyframes ucc-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+@keyframes ucc-scanlines {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+@keyframes ucc-pulse-badge {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.04); }
+}
+
+@keyframes ucc-pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.5; }
+}
